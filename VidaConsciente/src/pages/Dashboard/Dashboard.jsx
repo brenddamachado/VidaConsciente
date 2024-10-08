@@ -1,35 +1,36 @@
-import React, { useState } from 'react';
-import LineChart from '../../components/LineChart/LineChart';
-import PieChart from '../../components/PieChart/PieChart';
+import React, { useState } from "react";
+import LineChart from "../../components/LineChart/LineChart";
+import PieChart from "../../components/PieChart/PieChart";
+import "./Dashboard.css";
 
 const Dashboard = () => {
-  const [disease, setDisease] = useState('HIV');
+  const [disease, setDisease] = useState("HIV");
 
   return (
     <div className="dashboard-container">
-      <h2>Dashboard de DSTs/ISTs</h2>
+      <div className="charts-container">
+        <div className="chart-box">
+       
+          <h3>Evolução de DSTs/ISTs por Ano</h3>
+          <LineChart disease={disease} />
+             <div className="dropdown-container">
+            <label>Selecione a Doença/Infecção: </label>
+            <select
+              value={disease}
+              onChange={(e) => setDisease(e.target.value)}
+            >
+              <option value="HIV">HIV</option>
+              <option value="Sífilis">Sífilis</option>
+              <option value="Gonorreia">Gonorreia</option>
+              <option value="Herpes">Herpes</option>
+            </select>
+          </div>
+        </div>
 
-  
-      <div>
-        <label>Selecione a Doença/Infecção: </label>
-        <select value={disease} onChange={(e) => setDisease(e.target.value)}>
-          <option value="HIV">HIV</option>
-          <option value="Sífilis">Sífilis</option>
-          <option value="Gonorreia">Gonorreia</option>
-          <option value="Herpes">Herpes</option>
-          <option value="aaa">aaa</option>
-          
-        </select>
-      </div>
-
-     
-      <div className="chart-container">
-        <LineChart disease={disease} />
-      </div>
-
- 
-      <div className="chart-container">
-        <PieChart />
+        <div className="chart-box">
+          <h3>Visão Geral de Todas as Doenças</h3>
+          <PieChart />
+        </div>
       </div>
     </div>
   );
