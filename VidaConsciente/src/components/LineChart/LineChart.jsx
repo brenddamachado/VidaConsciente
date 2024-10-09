@@ -32,7 +32,7 @@ const LineChart = ({ disease }) => {
   useEffect(() => {
     const fetchLineData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/diseases');
+        const response = await axios.get('http://localhost:5000/diseases');
         const selectedDisease = response.data.find((d) => d.name === disease);
         if (selectedDisease) {
           const years = Object.keys(selectedDisease.casesByYear);

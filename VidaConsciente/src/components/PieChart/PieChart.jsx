@@ -21,7 +21,7 @@ const PieChart = () => {
   useEffect(() => {
     const fetchPieData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/diseases');
+        const response = await axios.get('http://localhost:5000/diseases');
         const totalCases = response.data.reduce((acc, disease) => {
           const yearlyCases = Object.values(disease.casesByYear);
           return acc + yearlyCases.reduce((sum, cases) => sum + cases, 0);

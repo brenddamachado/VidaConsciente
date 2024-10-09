@@ -1,0 +1,76 @@
+.self-care-container {
+    padding: 20px;
+  }
+  
+  .add-button-container {
+    text-align: right;
+    margin-bottom: 20px;
+  }
+  
+  .add-reminder-button {
+    background-color: #f0f0f0;
+    color: black;
+    font-size: 16px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .reminders-grid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .reminder-card {
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    width: 200px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    text-align: center;
+  }
+  
+  .reminder-card p {
+    margin: 0;
+  }
+  
+  .icons {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
+  
+  .icons span {
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 18px;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  

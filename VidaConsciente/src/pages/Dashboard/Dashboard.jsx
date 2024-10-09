@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LineChart from "../../components/LineChart/LineChart";
 import PieChart from "../../components/PieChart/PieChart";
+import SelfCareReminders from "../../components/SelfCareReminders/SelfCareReminders"; 
 import "./Dashboard.css";
 
 const Dashboard = () => {
@@ -8,12 +9,14 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
+    
+      <SelfCareReminders />
+
       <div className="charts-container">
         <div className="chart-box">
-       
           <h3>Evolução de DSTs/ISTs por Ano</h3>
           <LineChart disease={disease} />
-             <div className="dropdown-container">
+          <div className="dropdown-container">
             <label>Selecione a Doença/Infecção: </label>
             <select
               value={disease}
