@@ -1,5 +1,6 @@
 import Images from "../../assets/images.jsx";
 import { Menu, Nav, Logo, Navigation, UserNavigation, Line, UserPhoto, DropDown, I } from "./NavBar.styles.js";
+import "./NavBar.css";
 
 const NavBar = () => {
   return (

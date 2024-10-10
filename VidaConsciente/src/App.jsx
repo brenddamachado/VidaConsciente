@@ -11,8 +11,8 @@ function App() {
   return (
     <>
     {/* <UserProfile/> */}
-      {/* <Registre /> */}
-      <Dashboard />
+      <Registre />
+      {/* <Dashboard /> */}
     </>
   )
 }

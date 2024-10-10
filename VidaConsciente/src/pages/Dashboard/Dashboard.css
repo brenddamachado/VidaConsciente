@@ -50,7 +50,7 @@ option {
 }
 
 /* Ajuste do título */
-h2 {
+.dashboard-container h2 {
   text-align: center;
   font-weight: bold;
   margin-bottom: 10px;
