@@ -1,4 +1,5 @@
 import Registre from './pages/RegisterForm/Registre'
+import Login from './pages/Login/login';
 import './App.css'
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
   return (
     <>
       <Registre />
+     
     </>
   )
 }
