@@ -32,23 +32,33 @@ const LineChart = ({ disease }) => {
   useEffect(() => {
     const fetchLineData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/diseases');
-        const selectedDisease = response.data.find((d) => d.name === disease);
-        if (selectedDisease) {
-          const years = Object.keys(selectedDisease.casesByYear);
-          const cases = Object.values(selectedDisease.casesByYear);
-          setLineData({
-            labels: years,
-            datasets: [
-              {
-                label: `Casos de ${disease} por ano`,
-                data: cases,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 2,
-                fill: false,
-              },
-            ],
-          });
+        const response = await axios.get('http://localhost:3000/searchAllDST'); // A rota correta
+
+        console.log("Dados da API:", response.data); // Verifica a estrutura dos dados recebidos
+
+        if (response.data && response.data.Allcases) { // Verifica se 'Allcases' existe
+          const selectedDisease = response.data.Allcases.find((d) => d.name === disease);
+
+          if (selectedDisease && selectedDisease.casesByYear) { // Certifica-se que casesByYear existe
+            const years = Object.keys(selectedDisease.casesByYear);
+            const cases = Object.values(selectedDisease.casesByYear);
+            setLineData({
+              labels: years,
+              datasets: [
+                {
+                  label: `Casos de ${disease} por ano`,
+                  data: cases,
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  borderWidth: 2,
+                  fill: false,
+                },
+              ],
+            });
+          } else {
+            console.error('Doença não encontrada nos dados ou sem casos por ano.');
+          }
+        } else {
+          console.error('Dados da API não estão no formato esperado.');
         }
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
