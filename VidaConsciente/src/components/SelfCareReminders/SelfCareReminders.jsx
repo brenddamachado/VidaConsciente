@@ -80,7 +80,7 @@ const SelfCareReminders = () => {
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h3>{isEditing ? "Editar Lembrete" : "Adicionar Lembrete"}</h3>
+            <h3>{isEditing ? "Editar Lembrete" : "Adicionar Lembrete:"}</h3>
             <input
               type="text"
               value={reminderText}
