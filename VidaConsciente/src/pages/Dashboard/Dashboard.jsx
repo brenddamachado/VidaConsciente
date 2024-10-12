@@ -3,8 +3,9 @@ import LineChart from "../../components/LineChart/LineChart";
 import PieChart from "../../components/PieChart/PieChart";
 import SelfCareReminders from "../../components/SelfCareReminders/SelfCareReminders"; 
 import "./Dashboard.css";
-import Header from "../../components/header/header";
-import Siderbar from "../../components/siderbar/siderbar";
+import NavBar from "../../components/NavBar/NavBar";
+import SideBar from "../../components/SideBar/SideBar";
+
 import MapContainer from "../../components/MapComponent/MapComponent";
 
 
@@ -17,16 +18,16 @@ const Dashboard = () => {
 
   return (
     <>
-      <Header />
-      <Siderbar />
+    <NavBar/>
+    <SideBar/>
+  
       <div className="dashboard-container">
-        <SelfCareReminders />
-
+      <SelfCareReminders />
+      oi
+{/* 
         <div className="charts-container">
           <div className="chart-box">
-            <h3>Evolução de DSTs/ISTs por Ano</h3>
-            <LineChart disease={disease} />
-            <div className="dropdown-container">
+          <div className="dropdown-container">
               <label>Selecione a Doença/Infecção: </label>
               <select
                 value={disease}
@@ -39,18 +40,26 @@ const Dashboard = () => {
                 ))}
               </select>
             </div>
+            <h3>Evolução de DSTs/ISTs por Ano</h3>
+            <LineChart disease={disease} />
+          
+   
+            
           </div>
 
           <div className="chart-box">
             <h3>Visão Geral de Todas as Doenças</h3>
             <PieChart />
           </div>
-        </div>
+        </div> */}
 
-        <div className="App">
-      <h1>Locais de Testagem de DSTs</h1>
-      <MapContainer/>
-    </div>
+        {/* <div className="App">
+  <h1>Locais de Testagem de DSTs</h1>
+  <div className="map-container">
+  <MapContainer/>
+  </div>
+</div> */}
+
       </div>
     </>
   );
