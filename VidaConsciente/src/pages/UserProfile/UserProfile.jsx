@@ -1,9 +1,14 @@
+import { useState } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import SideBar from "../../components/SideBar/SideBar";
 import Images from "../../assets/images.jsx";
-import { MainContainer, UserProfileContent, Profile, Line, About, Span, Icon, Info, Bio, Location, Strong, Edit, MainContent, UserProfileContainer, FindOutMore, GroupSquare, Square, Graphics, IconElements, P, Next } from './UserProfile.styles'
+import { MainContainer, UserProfileContent, Profile, Line, About, Span, Icon, Info, Bio, Location, Strong, Edit, MainContent, UserProfileContainer, FindOutMore, GroupSquare, Square, Graphics, IconElements, P, Next, DropdownMenu, DropdownItem} from './UserProfile.styles'
 
 const UserProfile = () => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  }
   return (
     <>
       <NavBar/>
@@ -40,7 +45,12 @@ const UserProfile = () => {
 
                 </About>
                 {/* aqui vai ficar o editar */}
-                <Edit className='bx bx-dots-vertical-rounded' style={{color:'#D9D9D9'}}></Edit>
+                <Edit onClick={toggleDropdown} isOpen={dropdownOpen} className={dropdownOpen ? 'bx bx-x' : 'bx bx-dots-vertical-rounded'} style={{color:'#D9D9D9'}}></Edit>
+                {dropdownOpen && (
+                  <DropdownMenu>
+                    <DropdownItem>Editar</DropdownItem>
+                  </DropdownMenu>
+                )}
             </Profile>
             <Line></Line>
         </UserProfileContent>
@@ -74,7 +84,9 @@ const UserProfile = () => {
             </Square>
             <Square>
 
-              <IconElements className='bx bx-cross' style={{color:'#606060'}}></IconElements>
+              <abbr title="Não é possivel adicionar mais itens">
+                <IconElements className='bx bx-cross' style={{color:'#606060'}}></IconElements>
+              </abbr>
 
             </Square>
           </GroupSquare>

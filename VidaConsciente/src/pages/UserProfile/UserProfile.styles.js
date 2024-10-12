@@ -79,7 +79,29 @@ export const Edit = styled.i`
     width: 4rem;
     height: 2.4rem;
     cursor: pointer;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    transform: ${({ isOpen }) => (isOpen ? 'rotate(360deg)' : 'rotate(0deg)')};
+    opacity: ${({ isOpen }) => (isOpen ? '1' : '0.5')};
 `
+
+export const DropdownMenu = styled.div`
+  position: absolute;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  right: 24rem;
+  background-color: white;
+  border-radius: 10px 5px 10px 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  z-index: 100;
+`;
+
+export const DropdownItem = styled.div`
+  padding: 10px 20px;
+  cursor: pointer;
+  &:hover {
+    background-color: #EEEFFF;
+  }
+`;
 
 export const MainContent = styled.div`
     padding: 5vh 0 0 4vw; // GAGA LEGAL
