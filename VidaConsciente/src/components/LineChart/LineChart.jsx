@@ -32,14 +32,13 @@ const LineChart = ({ disease }) => {
   useEffect(() => {
     const fetchLineData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/searchAllDST'); // A rota correta
+        const response = await axios.get('http://localhost:3000/searchAllCases'); 
 
-        console.log("Dados da API:", response.data); // Verifica a estrutura dos dados recebidos
-
-        if (response.data && response.data.Allcases) { // Verifica se 'Allcases' existe
+        console.log("Dados da API:", response.data); 
+        if (response.data && response.data.Allcases) { 
           const selectedDisease = response.data.Allcases.find((d) => d.name === disease);
 
-          if (selectedDisease && selectedDisease.casesByYear) { // Certifica-se que casesByYear existe
+          if (selectedDisease && selectedDisease.casesByYear) { 
             const years = Object.keys(selectedDisease.casesByYear);
             const cases = Object.values(selectedDisease.casesByYear);
             setLineData({

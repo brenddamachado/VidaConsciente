@@ -5,6 +5,9 @@ import SelfCareReminders from "../../components/SelfCareReminders/SelfCareRemind
 import "./Dashboard.css";
 import Header from "../../components/header/header";
 import Siderbar from "../../components/siderbar/siderbar";
+import MapContainer from "../../components/MapComponent/MapComponent";
+
+
 
 
 const diseaseOptions = ["HIV", "Sífilis", "Gonorreia", "Clamídia", "Herpes Genital"];
@@ -43,6 +46,11 @@ const Dashboard = () => {
             <PieChart />
           </div>
         </div>
+
+        <div className="App">
+      <h1>Locais de Testagem de DSTs</h1>
+      <MapContainer/>
+    </div>
       </div>
     </>
   );
