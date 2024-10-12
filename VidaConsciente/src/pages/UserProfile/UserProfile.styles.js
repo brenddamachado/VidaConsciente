@@ -84,6 +84,13 @@ export const Edit = styled.i`
     opacity: ${({ isOpen }) => (isOpen ? '1' : '0.5')};
 `
 
+export const Input = styled.input`
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    height: 2rem;
+    padding-left: .3rem;
+`
+
 export const DropdownMenu = styled.div`
   position: absolute;
   font-family: 'Poppins', sans-serif;
