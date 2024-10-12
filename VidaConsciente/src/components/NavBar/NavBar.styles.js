@@ -12,6 +12,8 @@ export const Menu = styled.nav`
     justify-content: center;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     position: absolute;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
 `
 
 export const Nav = styled.nav`
@@ -22,6 +24,7 @@ export const Nav = styled.nav`
     max-width: 1800px;
     width: 100%;
     padding: 0 2rem;
+    /* border: green solid 1px; */
     /* border: green solid 1px; */
 `
 
