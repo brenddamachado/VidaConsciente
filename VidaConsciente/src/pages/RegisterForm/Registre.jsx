@@ -1,95 +1,122 @@
-import React from 'react';
 import './registre.css';
+import React, { useState } from 'react'; 
+import axios from 'axios';
 import NavBar from '../../components/NavBar/NavBar';
 
 function Registre() {
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [confirmarSenha, setConfirmarSenha] = useState('');
+
+    const [cep, setCep] = useState('');
+    const [cidade, setCidade] = useState('');
+    const [estado, setEstado] = useState('');
+    const [endereco, setEndereco] = useState('');
+
+    const [telefone, setTelefone] = useState('');
+    const [genero, setGenero] = useState('');
+    const [dataNascimento, setDataNascimento] = useState('');
+
+    const [erroSenha, setErroSenha] = useState('');
 
     function limparCep() {
-        document.getElementById('endereco').value = '';
-        document.getElementById('cidade').value = '';
-        document.getElementById('estado').value = '';
-        document.getElementById('endereco').value = '';
-        document.getElementById('cidade').value = '';
-        document.getElementById('estado').value = '';
+        setEndereco('');
+        setCidade('');
+        setEstado('');
     }
-
 
     function preencherCampos(dados) {
         if (!("erro" in dados)) {
-            document.getElementById('endereco').value = dados.logradouro;
-            document.getElementById('cidade').value = dados.localidade;
-            document.getElementById('estado').value = dados.uf;
-            document.getElementById('endereco').value = dados.logradouro;
-            document.getElementById('cidade').value = dados.localidade;
-            document.getElementById('estado').value = dados.uf;
+            setEndereco(dados.logradouro);
+            setCidade(dados.localidade);
+            setEstado(dados.uf);
         } else {
-            limparCep();
-            alert("CEP não encontrado.");
             limparCep();
             alert("CEP não encontrado.");
         }
     }
-
 
     function buscarCep(event) {
-        const cep = event.target.value.replace(/\D/g, '');
+        const cepValue = event.target.value.replace(/\D/g, '');
+        setCep(cepValue);
 
-        if (cep !== "" && /^[0-9]{8}$/.test(cep)) {
-            document.getElementById('endereco').value = "...";
-            document.getElementById('cidade').value = "...";
-            document.getElementById('estado').value = "...";
-            document.getElementById('endereco').value = "...";
-            document.getElementById('cidade').value = "...";
-            document.getElementById('estado').value = "...";
-
-            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        if (cepValue !== "" && /^[0-9]{8}$/.test(cepValue)) {
+            setEndereco('...');
+            setCidade('...');
+            setEstado('...');
+            
+            fetch(`https://viacep.com.br/ws/${cepValue}/json/`)
                 .then(response => response.json())
                 .then(data => preencherCampos(data))
-                .catch(e => limparCep());
+                .catch(() => limparCep());
         } else {
-            limparCep();
             limparCep();
         }
     }
 
     function handleSubmit(event) {
         event.preventDefault();
-        alert("Cadastro realizado com sucesso!");
-    }
 
-    function handleSubmit(event) {
-        event.preventDefault();
-        alert("Cadastro realizado com sucesso!");
+        
+        if (senha !== confirmarSenha) {
+            setErroSenha('As senhas não são iguais');
+            return; 
+        }
+
+        setErroSenha('');
+
+        axios.post('http://localhost:3000/registerUser', { 
+            name: nome, 
+            email: email,
+            password: senha,
+            birthDate: dataNascimento,
+            gender: genero,
+            phone: telefone,
+            cep: cep,
+            city: cidade,
+            state: estado,
+            address: endereco
+        })
+        .then((response) => {
+            if (response.status === 201) {
+                alert('Usuário cadastrado com sucesso!');
+            } else {
+                alert('Algo deu errado ao cadastrar o usuário.');
+            }
+        })
+        .catch((error) => {
+            console.error('Erro ao cadastrar o usuário:', error);
+            alert('Erro ao cadastrar o usuário. Verifique os dados e tente novamente.');
+        });
     }
 
     return (
         <div className='reg-container'>
-
             <NavBar />
 
             <section className="forms-container">
-
                 <form onSubmit={handleSubmit}>
                     <h2>Cadastre-se</h2>
-                    
+
                     <div className="form-container">
                         <div className="form-column">
                             <div className="form-row">
                                 <label htmlFor="nome">Nome Completo</label>
-                                <input type="text" id="nome" name="nome" required />
+                                <input type="text" id="nome" name="nome" value={nome} onChange={(e) => setNome(e.target.value)} required />
                             </div>
                             <div className="form-row">
                                 <label htmlFor="email">Email</label>
-                                <input type="email" id="email" name="email" required />
+                                <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                             </div>
                             <div className="form-duo-row">
                                 <div className="form-row">
                                     <label htmlFor="dataNascimento">Data de Nascimento</label>
-                                    <input type="date" id="dataNascimento" name="dataNascimento" required />
+                                    <input type="date" id="dataNascimento" name="dataNascimento" value={dataNascimento} onChange={(e) => setDataNascimento(e.target.value)} required />
                                 </div>
                                 <div className="form-row">
                                     <label htmlFor="genero">Gênero</label>
-                                    <select id="genero" name="genero" required>
+                                    <select id="genero" name="genero" value={genero} onChange={(e) => setGenero(e.target.value)} required>
                                         <option value="selecionar">Selecionar</option>
                                         <option value="masculino">Masculino</option>
                                         <option value="feminino">Feminino</option>
@@ -101,7 +128,7 @@ function Registre() {
                                 </div>
                                 <div className="form-row">
                                     <label htmlFor="telefone">Telefone</label>
-                                    <input type="tel" id="telefone" name="telefone" required />
+                                    <input type="tel" id="telefone" name="telefone" value={telefone} onChange={(e) => setTelefone(e.target.value)} required />
                                 </div>
                             </div>
                         </div>
@@ -109,30 +136,31 @@ function Registre() {
                             <div className="form-duo-row">
                                 <div className="form-row">
                                     <label htmlFor="cep">CEP</label>
-                                    <input type="text" id="cep" name="cep" onBlur={buscarCep} required />
+                                    <input type="text" id="cep" name="cep" value={cep} onChange={buscarCep} required />
                                 </div>
                                 <div className="form-row">
                                     <label htmlFor="cidade">Cidade</label>
-                                    <input type="text" id="cidade" name="cidade" required />
+                                    <input type="text" id="cidade" name="cidade" value={cidade} onChange={(e) => setCidade(e.target.value)} required />
                                 </div>
                                 <div className="form-row">
                                     <label htmlFor="estado">Estado</label>
-                                    <input type="text" id="estado" name="estado" required />
+                                    <input type="text" id="estado" name="estado" value={estado} onChange={(e) => setEstado(e.target.value)} required />
                                 </div>
                             </div>
                             <div className="form-row">
                                 <label htmlFor="endereco">Endereço</label>
-                                <input type="text" id="endereco" name="endereco" required />
+                                <input type="text" id="endereco" name="endereco" value={endereco} onChange={(e) => setEndereco(e.target.value)} required />
                             </div>
 
                             <div className="form-row">
                                 <label htmlFor="senha">Senha</label>
-                                <input type="password" id="senha" name="senha" required />
+                                <input type="password" id="senha" name="senha" value={senha} onChange={(e) => setSenha(e.target.value)} required />
                             </div>
                             <div className="form-row">
                                 <label htmlFor="confirmarSenha">Confirmação de Senha</label>
-                                <input type="password" id="confirmarSenha" name="confirmarSenha" required />
+                                <input type="password" id="confirmarSenha" name="confirmarSenha" value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} required />
                             </div>
+                            {erroSenha && <p style={{ color: 'red' }}>{erroSenha}</p>}
                         </div>
                     </div>
                     <div className="form-btn"><button type="submit">Cadastrar</button></div>
