@@ -1,13 +1,13 @@
 .dashboard-container,
 .dashboard-2ndGrid,
-.charts-container,
-.reminders {
+.charts-container
+ {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Ajusta o tamanho da tela para 1920x1080 */
+
 .dashboard-container {
   font-family: 'Arial', sans-serif;
   background: #f6f6f6;
@@ -22,9 +22,9 @@
 }
 
 .reminders {
-  /* background-color: red; */
+
   width: 100%;
-  padding: 2rem 0 1rem
+  padding: 2rem 8rem 1rem;
 }
 
 .dashboard-2ndGrid {
@@ -55,15 +55,13 @@ option {
   font-weight: bold;
   margin-bottom: 10px;
   font-size: 16px;
-  /* Diminui o tamanho da fonte */
+
 }
 
-/* Ajuste dos gráficos para ficarem menores */
 .charts-container {
   display: flex;
 
   gap: 5px;
-  /* Diminui o espaço entre os gráficos */
 
 }
 
@@ -73,7 +71,7 @@ option {
   justify-content: flex-start;
   align-items: center;
   gap: .5rem;
-  /* border: .5px solid #999999; */
+
   padding: 30px 15px;
   width: 300px;
   height: 350px;
@@ -81,44 +79,42 @@ option {
   border-radius: 15px;
 }
 
-/* Ajuste do texto dentro dos gráficos */
+
 .chart-box h3 {
   text-align: center;
   font-weight: bold;
   margin-bottom: 8px;
-  /* Diminui a margem */
+
   font-size: 14px;
-  /* Diminui o tamanho da fonte */
+
 }
 
-/* Ajuste do canvas (gráfico) */
+
 .chart-box canvas {
   display: block;
   max-width: 100%;
   height: 70%;
-  /* Reduz a altura do gráfico */
+
 }
 
-/* Ajuste do dropdown */
+
 .dropdown-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-top: 15px;
-  /* Diminui a margem */
   width: 100%;
   font-size: 12px;
-  /* Diminui o tamanho da fonte do rótulo */
+
 }
 
-/* Ajuste do header dos gráficos */
+
 .chart-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
   font-size: 12px;
-  /* Diminui o tamanho da fonte */
 }
 
 
@@ -126,7 +122,7 @@ option {
 
 
 .App {
-  /* margin-top: 10px; */
+
   padding: 30px 15px;
   width: 300px;
   height: 350px;
@@ -151,13 +147,11 @@ option {
 
 .map-container {
   height: 300px;
-  /* Define uma altura e largura iguais para o formato quadrado */
-  /* width: 300px; */
-  /* Define a largura igual à altura */
+ 
   border-radius: 8px;
-  /* Mantém as bordas arredondadas, opcional */
+ 
   overflow: hidden;
-  /* Garante que o conteúdo do mapa não ultrapasse o contêiner */
+ 
   margin: 0 auto;
-  /* Centraliza o mapa na tela */
+
 }
