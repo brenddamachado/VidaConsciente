@@ -1,29 +1,77 @@
-import React from 'react';
-import './login.css'; // Certifique-se de ter um CSS específico para o Login, se necessário.
+import React, { useState } from 'react'; 
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; 
+import '../RegisterForm/registre.css'; 
+import NavBarOut from "../../components/NavBarOut/NavBarOut";
 
 function Login() {
-    function handleLogin(event) {
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate(); 
+
+    const handleLogin = (event) => {
         event.preventDefault();
-        // Aqui você pode adicionar a lógica de autenticação
-        alert('Login efetuado com sucesso!');
-    }
+
+        axios.post('http://localhost:3000/login', {
+            email: email,
+            password: senha
+        })
+        .then((response) => {
+            if (response.status === 200) {
+                const { name } = response.data.user;
+        
+                localStorage.setItem('userName', name);
+               
+                navigate('/dashboard');
+            } else {
+                setErrorMessage('Erro ao logar. Tente novamente.');
+            }
+        })
+        .catch((error) => {
+            console.error('Erro de login:', error);
+            setErrorMessage('E-mail ou senha incorretos.');
+        });
+    };
 
     return (
-        <div className="login-container">
-            <h1>Login</h1>
-            <form onSubmit={handleLogin}>
-                <label htmlFor="email">Email</label>
-                <input type="email" id="email" name="email" required />
-
-                <label htmlFor="senha">Senha</label>
-                <input type="password" id="senha" name="senha" required />
-
-                <button type="submit">Entrar</button>
-            </form>
-
-            <div className="register-link">
-                <p>Não tem uma conta? <a href="/registre">Crie uma aqui</a></p>
-            </div>
+        <div className='reg-container'>
+            <NavBarOut />
+            <section className="forms-container">
+                <form onSubmit={handleLogin}>
+                    <h2>Login</h2>
+                    <div className="form-container">
+                        <div className="form-column">
+                            <div className="form-row">
+                                <label htmlFor="e-mail">E-mail</label>
+                                <input 
+                                    type="text" 
+                                    id="e-mail" 
+                                    name="e-mail" 
+                                    value={email} 
+                                    onChange={(e) => setEmail(e.target.value)} 
+                                    required 
+                                />
+                            </div>
+                            <div className="form-row">
+                                <label htmlFor="senha">Senha</label>
+                                <input 
+                                    type="password" 
+                                    id="senha" 
+                                    name="senha" 
+                                    value={senha} 
+                                    onChange={(e) => setSenha(e.target.value)} 
+                                    required 
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+                    <div className="form-btn">
+                        <button type="submit">Entrar</button>
+                    </div>
+                </form>
+            </section>
         </div>
     );
 }
