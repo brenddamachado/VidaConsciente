@@ -8,23 +8,36 @@ function Registre() {
         document.getElementById('endereco').value = '';
         document.getElementById('cidade').value = '';
         document.getElementById('estado').value = '';
+        document.getElementById('endereco').value = '';
+        document.getElementById('cidade').value = '';
+        document.getElementById('estado').value = '';
     }
+
 
     function preencherCampos(dados) {
         if (!("erro" in dados)) {
             document.getElementById('endereco').value = dados.logradouro;
             document.getElementById('cidade').value = dados.localidade;
             document.getElementById('estado').value = dados.uf;
+            document.getElementById('endereco').value = dados.logradouro;
+            document.getElementById('cidade').value = dados.localidade;
+            document.getElementById('estado').value = dados.uf;
         } else {
+            limparCep();
+            alert("CEP não encontrado.");
             limparCep();
             alert("CEP não encontrado.");
         }
     }
 
+
     function buscarCep(event) {
         const cep = event.target.value.replace(/\D/g, '');
 
         if (cep !== "" && /^[0-9]{8}$/.test(cep)) {
+            document.getElementById('endereco').value = "...";
+            document.getElementById('cidade').value = "...";
+            document.getElementById('estado').value = "...";
             document.getElementById('endereco').value = "...";
             document.getElementById('cidade').value = "...";
             document.getElementById('estado').value = "...";
@@ -35,7 +48,13 @@ function Registre() {
                 .catch(e => limparCep());
         } else {
             limparCep();
+            limparCep();
         }
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        alert("Cadastro realizado com sucesso!");
     }
 
     function handleSubmit(event) {
