@@ -1,7 +1,7 @@
 import './registre.css';
 import React, { useState } from 'react'; 
 import axios from 'axios';
-import NavBar from '../../components/NavBar/NavBar';
+import NavBarOut from '../../components/NavBarOut/NavBarOut';
 
 function Registre() {
     const [nome, setNome] = useState('');
@@ -93,7 +93,7 @@ function Registre() {
 
     return (
         <div className='reg-container'>
-            <NavBar />
+            <NavBarOut />
 
             <section className="forms-container">
                 <form onSubmit={handleSubmit}>
