@@ -12,6 +12,8 @@ export const Menu = styled.nav`
     justify-content: center;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     position: absolute;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
 `
 export const LogoImage = styled.img`
   width: 30px;
@@ -30,25 +32,18 @@ export const Nav = styled.nav`
     width: 100%;
     padding: 0 2rem;
     /* border: green solid 1px; */
+    /* border: green solid 1px; */
 `
 
 export const Logo = styled.h1`
     font-size: 1rem;
     font-weight: 900;
-
-    /* @media screen and (max-width: 768px) {
-        font-size: .5rem;
-    } */
 `
 
 export const Navigation = styled.div`
     display: flex;
     flex-direction: row;
 `
-
-// export const Theme = styled.nav`
-//     /* border: red solid 1px; */
-// `
 
 export const UserNavigation = styled.nav`
     display: flex;
@@ -80,4 +75,26 @@ export const DropDown = styled.nav`
 export const I = styled.i`
     /* border: red solid 1px; */
     font-size: 1.2rem;
+    transition: transform 0.3s ease-in-out;
+    transform: ${({ isOpen }) => (isOpen ? 'rotate(180deg)' : 'rotate(0)')};
 `
+
+export const DropdownMenu = styled.div`
+    position: absolute;
+    top: 60px;
+    right: 19rem;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    padding: 10px 0;
+`;
+
+export const DropdownItem = styled.div`
+    padding: 10px 20px;
+    cursor: pointer;
+
+        &:hover {
+            background-color: #EEEFFF;
+        }
+`;
