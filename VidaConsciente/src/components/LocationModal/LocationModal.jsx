@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './LocationModal.css'; 
+
 
 const LocationModal = ({ location, onClose, fetchLocations }) => {
     const [isEditMode, setIsEditMode] = useState(false);

@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-
-import "./SelfCareReminders.css";
+import { 
+  AddReminderButton, 
+  SelfCareContainer, 
+  RemindersGrid, 
+  ReminderCard, 
+  Icons, 
+  Icon, 
+  ModalOverlay, 
+  ModalContent, 
+  Input, 
+  Button 
+} from "./SelfCareReminders.style.js";
 
 const SelfCareReminders = () => {
   const [reminders, setReminders] = useState([]);
@@ -21,7 +31,6 @@ const SelfCareReminders = () => {
     };
     fetchReminders();
   }, []);
-  
 
   const saveReminder = async () => {
     if (reminderText.trim()) {
@@ -54,7 +63,6 @@ const SelfCareReminders = () => {
       setIsModalOpen(false);
     }
   };
-  
 
   const openEditModal = (id, text) => {
     setReminderText(text);
@@ -73,41 +81,39 @@ const SelfCareReminders = () => {
   };
 
   return (
-    <div className="self-care-container">
-    <div className="add-button-container">
-      <button className="add-reminder-button" onClick={() => setIsModalOpen(true)}>
+    <SelfCareContainer>
+      <AddReminderButton onClick={() => setIsModalOpen(true)}>
         Adicionar +
-      </button>
-    </div>
+      </AddReminderButton>
 
-    {isModalOpen && (
-      <div className="modal-overlay">
-        <div className="modal-content">
-          <h3>{isEditing ? "Editar Lembrete" : "Adicionar Lembrete:"}</h3>
-          <input
-            type="text"
-            value={reminderText}
-            onChange={(e) => setReminderText(e.target.value)}
-            placeholder="Digite o lembrete"
-          />
-          <button onClick={saveReminder}>{isEditing ? "Salvar" : "Adicionar"}</button>
-          <button onClick={() => setIsModalOpen(false)}>Cancelar</button>
-        </div>
-      </div>
-    )}
+      {isModalOpen && (
+        <ModalOverlay>
+          <ModalContent>
+            <h3>{isEditing ? "Editar Lembrete" : "Adicionar Lembrete:"}</h3>
+            <Input
+              type="text"
+              value={reminderText}
+              onChange={(e) => setReminderText(e.target.value)}
+              placeholder="Digite o lembrete"
+            />
+            <Button onClick={saveReminder}>{isEditing ? "Salvar" : "Adicionar"}</Button>
+            <Button onClick={() => setIsModalOpen(false)}>Cancelar</Button>
+          </ModalContent>
+        </ModalOverlay>
+      )}
 
-    <div className="reminders-grid">
-      {reminders.map((reminder) => (
-        <div key={reminder.id} className="reminder-card">
-          <p>{reminder.text}</p>
-          <div className="icons">
-            <span onClick={() => openEditModal(reminder.id, reminder.text)}>✏️</span>
-            <span onClick={() => deleteReminder(reminder.id)}>🗑️</span>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
+      <RemindersGrid>
+        {reminders.map((reminder) => (
+          <ReminderCard key={reminder.id}>
+            <p>{reminder.text}</p>
+            <Icons>
+              <Icon onClick={() => openEditModal(reminder.id, reminder.text)}>✏️</Icon>
+              <Icon onClick={() => deleteReminder(reminder.id)}>🗑️</Icon>
+            </Icons>
+          </ReminderCard>
+        ))}
+      </RemindersGrid>
+    </SelfCareContainer>
   );
 };
 

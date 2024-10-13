@@ -1,7 +1,14 @@
 import React, { useState } from 'react'; 
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; 
-import '../RegisterForm/registre.css'; 
+import { 
+    RegContainer, 
+    LoginContainer , 
+    Form, 
+    FormRow, 
+    FormBtn, 
+    Button 
+} from '../RegisterForm/registre.style.js'; 
 import NavBarOut from "../../components/NavBarOut/NavBarOut";
 
 function Login() {
@@ -38,14 +45,14 @@ function Login() {
     };
 
     return (
-        <div className='reg-container'>
+        <RegContainer>
             <NavBarOut />
-            <section className="forms-container">
-                <form onSubmit={handleLogin}>
+            <LoginContainer >
+                <Form onSubmit={handleLogin}>
                     <h2>Login</h2>
                     <div className="form-container">
                         <div className="form-column">
-                            <div className="form-row">
+                            <FormRow>
                                 <label htmlFor="e-mail">E-mail</label>
                                 <input 
                                     type="email" 
@@ -55,8 +62,8 @@ function Login() {
                                     onChange={(e) => setEmail(e.target.value)} 
                                     required 
                                 />
-                            </div>
-                            <div className="form-row">
+                            </FormRow>
+                            <FormRow>
                                 <label htmlFor="senha">Senha</label>
                                 <input 
                                     type="password" 
@@ -66,16 +73,16 @@ function Login() {
                                     onChange={(e) => setSenha(e.target.value)} 
                                     required 
                                 />
-                            </div>
+                            </FormRow>
                         </div>
                     </div>
                     {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-                    <div className="form-btn">
-                        <button type="submit">Entrar</button>
-                    </div>
-                </form>
-            </section>
-        </div>
+                    <FormBtn>
+                        <Button type="submit">Entrar</Button>
+                    </FormBtn>
+                </Form>
+            </LoginContainer >
+        </RegContainer>
     );
 }
 

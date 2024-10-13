@@ -1,7 +1,15 @@
-import './registre.css';
 import React, { useState } from 'react'; 
 import axios from 'axios';
 import NavBarOut from '../../components/NavBarOut/NavBarOut';
+import { 
+    RegContainer, 
+    FormsContainer, 
+    Form, 
+    FormRow, 
+    FormDuoRow, 
+    FormBtn, 
+    Button 
+} from './registre.style.js';
 
 function Registre() {
     const [nome, setNome] = useState('');
@@ -58,7 +66,6 @@ function Registre() {
     function handleSubmit(event) {
         event.preventDefault();
 
-        
         if (senha !== confirmarSenha) {
             setErroSenha('As senhas não são iguais');
             return; 
@@ -92,29 +99,29 @@ function Registre() {
     }
 
     return (
-        <div className='reg-container'>
+        <RegContainer>
             <NavBarOut />
 
-            <section className="forms-container">
-                <form onSubmit={handleSubmit}>
+            <FormsContainer>
+                <Form onSubmit={handleSubmit}>
                     <h2>Cadastre-se</h2>
 
                     <div className="form-container">
                         <div className="form-column">
-                            <div className="form-row">
+                            <FormRow>
                                 <label htmlFor="nome">Nome Completo</label>
                                 <input type="text" id="nome" name="nome" value={nome} onChange={(e) => setNome(e.target.value)} required />
-                            </div>
-                            <div className="form-row">
+                            </FormRow>
+                            <FormRow>
                                 <label htmlFor="email">Email</label>
                                 <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                            </div>
-                            <div className="form-duo-row">
-                                <div className="form-row">
+                            </FormRow>
+                            <FormDuoRow>
+                                <FormRow>
                                     <label htmlFor="dataNascimento">Data de Nascimento</label>
                                     <input type="date" id="dataNascimento" name="dataNascimento" value={dataNascimento} onChange={(e) => setDataNascimento(e.target.value)} required />
-                                </div>
-                                <div className="form-row">
+                                </FormRow>
+                                <FormRow>
                                     <label htmlFor="genero">Gênero</label>
                                     <select id="genero" name="genero" value={genero} onChange={(e) => setGenero(e.target.value)} required>
                                         <option value="selecionar">Selecionar</option>
@@ -125,48 +132,48 @@ function Registre() {
                                         <option value="outro">Outro</option>
                                         <option value="prefiro-nao-dizer">Prefiro não dizer</option>
                                     </select>
-                                </div>
-                                <div className="form-row">
+                                </FormRow>
+                                <FormRow>
                                     <label htmlFor="telefone">Telefone</label>
                                     <input type="tel" id="telefone" name="telefone" value={telefone} onChange={(e) => setTelefone(e.target.value)} required />
-                                </div>
-                            </div>
+                                </FormRow>
+                            </FormDuoRow>
                         </div>
                         <div className="form-column">
-                            <div className="form-duo-row">
-                                <div className="form-row">
+                            <FormDuoRow>
+                                <FormRow>
                                     <label htmlFor="cep">CEP</label>
                                     <input type="text" id="cep" name="cep" value={cep} onChange={buscarCep} required />
-                                </div>
-                                <div className="form-row">
+                                </FormRow>
+                                <FormRow>
                                     <label htmlFor="cidade">Cidade</label>
                                     <input type="text" id="cidade" name="cidade" value={cidade} onChange={(e) => setCidade(e.target.value)} required />
-                                </div>
-                                <div className="form-row">
+                                </FormRow>
+                                <FormRow>
                                     <label htmlFor="estado">Estado</label>
                                     <input type="text" id="estado" name="estado" value={estado} onChange={(e) => setEstado(e.target.value)} required />
-                                </div>
-                            </div>
-                            <div className="form-row">
+                                </FormRow>
+                            </FormDuoRow>
+                            <FormRow>
                                 <label htmlFor="endereco">Endereço</label>
                                 <input type="text" id="endereco" name="endereco" value={endereco} onChange={(e) => setEndereco(e.target.value)} required />
-                            </div>
+                            </FormRow>
 
-                            <div className="form-row">
+                            <FormRow>
                                 <label htmlFor="senha">Senha</label>
                                 <input type="password" id="senha" name="senha" value={senha} onChange={(e) => setSenha(e.target.value)} required />
-                            </div>
-                            <div className="form-row">
+                            </FormRow>
+                            <FormRow>
                                 <label htmlFor="confirmarSenha">Confirmação de Senha</label>
                                 <input type="password" id="confirmarSenha" name="confirmarSenha" value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} required />
-                            </div>
+                            </FormRow>
                             {erroSenha && <p style={{ color: 'red' }}>{erroSenha}</p>}
                         </div>
                     </div>
-                    <div className="form-btn"><button type="submit">Cadastrar</button></div>
-                </form>
-            </section>
-        </div>
+                    <FormBtn><Button type="submit">Cadastrar</Button></FormBtn>
+                </Form>
+            </FormsContainer>
+        </RegContainer>
     );
 }
 

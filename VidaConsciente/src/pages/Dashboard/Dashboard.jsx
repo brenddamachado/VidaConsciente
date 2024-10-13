@@ -3,11 +3,25 @@ import axios from "axios";
 import LineChart from "../../components/LineChart/LineChart";
 import PieChart from "../../components/PieChart/PieChart";
 import SelfCareReminders from "../../components/SelfCareReminders/SelfCareReminders";
-import "./Dashboard.css";
+import { 
+  DashboardContainer, 
+  Reminders, 
+  DashboardSecondGrid, 
+  DropdownContainer, 
+  Select, 
+  Option, 
+  ChartsContainer, 
+  ChartBox, 
+  ChartBoxHeading, 
+  AppContainer, 
+  AppHeading, 
+  LeafletContainer, 
+  MapContainerStyled,
+  EyeIcon 
+} from "./Dashboard.style.js";
 import NavBar from "../../components/NavBar/NavBar";
 import SideBar from "../../components/SideBar/SideBar";
 import { IoEye, IoPencil, IoTrash } from "react-icons/io5";
-import LocationModal from "../../components/LocationModal/LocationModal";
 import MapContainer from "../../components/MapComponent/MapComponent";
 import Modal from "../../components/modal/modal";
 
@@ -118,7 +132,6 @@ const Dashboard = () => {
     setIsLocationModalOpen(false);
   };
 
-  // Abrir modal de edição de locais
   const handleLocationEditModalOpen = (location) => {
     setSelectedLocation(location);
     setIsLocationEditModalOpen(true);
@@ -168,141 +181,139 @@ const Dashboard = () => {
       <NavBar />
       <SideBar />
 
-      <div className={`dashboard-container ${isLocationModalOpen ? "blur-background" : ""}`}>
-        <div className="reminders">
+      <DashboardContainer>
+        <Reminders>
           <SelfCareReminders />
-        </div>
+        </Reminders>
 
-        <div className="dashboard-2ndGrid">
-          <div className="charts-container">
-            <div className="chart-box">
-              <div className="dropdown-container">
+        <DashboardSecondGrid>
+          <ChartsContainer>
+            <ChartBox>
+              <DropdownContainer>
                 <label>Selecione a Doença/Infecção: </label>
-                <select value={disease} onChange={(e) => setDisease(e.target.value)}>
+                <Select value={disease} onChange={(e) => setDisease(e.target.value)}>
                   {diseaseOptions.map((diseaseOption, index) => (
-                    <option key={index} value={diseaseOption}>
+                    <Option key={index} value={diseaseOption}>
                       {diseaseOption}
-                    </option>
+                    </Option>
                   ))}
-                </select>
-              </div>
-              <h3>Evolução de DSTs/ISTs por Ano</h3>
+                </Select>
+              </DropdownContainer>
+              <ChartBoxHeading>Evolução de DSTs/ISTs por Ano</ChartBoxHeading>
               <LineChart disease={disease} data={casesData} />
-              {isMasterUser && <IoEye onClick={handleOpenModal} />}
-            </div>
-          </div>
+              {isMasterUser && <EyeIcon onClick={handleOpenModal} />} 
+            </ChartBox>
+          </ChartsContainer>
 
-          <div className="chart-box">
-            {isMasterUser && <IoEye onClick={handleOpenModal} />}
-            <h3>Visão Geral de Todas as Doenças</h3>
-            <PieChart />
-          </div>
+          <ChartsContainer>
+            <ChartBox>
+              <ChartBoxHeading>Visão Geral de Todas as Doenças</ChartBoxHeading>
+              <PieChart />
+            </ChartBox>
+          </ChartsContainer>
 
-          <div className="App">
-            <h1>Locais de Testagem de DSTs</h1>
-            <div className="map-container">
-              {/* Exibe o ícone do olho apenas para o usuário master */}
+          <AppContainer>
+            <AppHeading>Locais de Testagem de DSTs</AppHeading>
+            <MapContainerStyled>
               {isMasterUser && <IoEye onClick={handleLocationModalOpen} />}
               <MapContainer />
+            </MapContainerStyled>
 
-              {/* Exibe o modal de locais quando necessário */}
-              {isLocationModalOpen && (
-                <Modal onClose={handleLocationModalClose}>
-                  <h2>Lista de Locais de Testagem</h2>
-                  <ul>
-                    {locations.map((location) => (
-                      <li key={location.id}>
-                        <p>
-                          <strong>{location.name}</strong> - {location.address}
-                        </p>
-                        <IoPencil
-                          onClick={() => handleLocationEditModalOpen(location)}
-                          style={{ cursor: "pointer" }}
-                        />
-                        <IoTrash
-                          onClick={() => handleDeleteLocation(location.id)}
-                          style={{ cursor: "pointer" }}
-                        />
-                      </li>
-                    ))}
-                  </ul>
-                </Modal>
-              )}
+            {isLocationModalOpen && (
+              <Modal onClose={handleLocationModalClose}>
+                <h2>Lista de Locais de Testagem</h2>
+                <ul>
+                  {locations.map((location) => (
+                    <li key={location.id}>
+                      <p>
+                        <strong>{location.name}</strong> - {location.address}
+                      </p>
+                      <IoPencil
+                        onClick={() => handleLocationEditModalOpen(location)}
+                        style={{ cursor: "pointer" }}
+                      />
+                      <IoTrash
+                        onClick={() => handleDeleteLocation(location.id)}
+                        style={{ cursor: "pointer" }}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </Modal>
+            )}
 
-              {/* Modal de Edição de Local */}
-              {isLocationEditModalOpen && selectedLocation && (
-                <Modal onClose={handleLocationEditModalClose}>
-                  <h2>Editando Local: {selectedLocation.name}</h2>
-                  <form>
-                    <div>
-                      <label>Nome:</label>
-                      <input
-                        type="text"
-                        name="name"
-                        value={selectedLocation.name}
-                        onChange={handleLocationInputChange}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label>Endereço:</label>
-                      <input
-                        type="text"
-                        name="address"
-                        value={selectedLocation.address}
-                        onChange={handleLocationInputChange}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label>Horário:</label>
-                      <input
-                        type="text"
-                        name="hours"
-                        value={selectedLocation.hours}
-                        onChange={handleLocationInputChange}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label>Serviço:</label>
-                      <input
-                        type="text"
-                        name="serviceType"
-                        value={selectedLocation.serviceType}
-                        onChange={handleLocationInputChange}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label>Latitude:</label>
-                      <input
-                        type="number"
-                        name="latitude"
-                        value={selectedLocation.latitude}
-                        onChange={handleLocationInputChange}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label>Longitude:</label>
-                      <input
-                        type="number"
-                        name="longitude"
-                        value={selectedLocation.longitude}
-                        onChange={handleLocationInputChange}
-                        required
-                      />
-                    </div>
-                    <button type="button" onClick={handleSaveLocationChanges}>
-                      Salvar Alterações
-                    </button>
-                  </form>
-                </Modal>
-              )}
-            </div>
-          </div>
-        </div>
+            {isLocationEditModalOpen && selectedLocation && (
+              <Modal onClose={handleLocationEditModalClose}>
+                <h2>Editando Local: {selectedLocation.name}</h2>
+                <form>
+                  <div>
+                    <label>Nome:</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={selectedLocation.name}
+                      onChange={handleLocationInputChange}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label>Endereço:</label>
+                    <input
+                      type="text"
+                      name="address"
+                      value={selectedLocation.address}
+                      onChange={handleLocationInputChange}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label>Horário:</label>
+                    <input
+                      type="text"
+                      name="hours"
+                      value={selectedLocation.hours}
+                      onChange={handleLocationInputChange}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label>Serviço:</label>
+                    <input
+                      type="text"
+                      name="serviceType"
+                      value={selectedLocation.serviceType}
+                      onChange={handleLocationInputChange}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label>Latitude:</label>
+                    <input
+                      type="number"
+                      name="latitude"
+                      value={selectedLocation.latitude}
+                      onChange={handleLocationInputChange}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label>Longitude:</label>
+                    <input
+                      type="number"
+                      name="longitude"
+                      value={selectedLocation.longitude}
+                      onChange={handleLocationInputChange}
+                      required
+                    />
+                  </div>
+                  <button type="button" onClick={handleSaveLocationChanges}>
+                    Salvar Alterações
+                  </button>
+                </form>
+              </Modal>
+            )}
+          </AppContainer>
+        </DashboardSecondGrid>
 
         {showModal && (
           <Modal onClose={handleCloseModal}>
@@ -362,7 +373,7 @@ const Dashboard = () => {
             <button onClick={handleSaveChanges}>Salvar Alterações</button>
           </Modal>
         )}
-      </div>
+      </DashboardContainer>
     </>
   );
 };
