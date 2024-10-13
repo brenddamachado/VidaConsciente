@@ -3,6 +3,7 @@ import NavBar from "../../components/NavBar/NavBar";
 import SideBar from "../../components/SideBar/SideBar";
 import Images from "../../assets/images.jsx";
 import { MainContainer, UserProfileContent, Profile, Line, About, Span, Icon, Info, Bio, Location, Strong, Edit, Input, MainContent, UserProfileContainer, FindOutMore, GroupSquare, Square, Graphics, IconElements, P, Next, DropdownMenu, DropdownItem } from './UserProfile.styles'
+import './UserProfile.css'
 
 const UserProfile = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -152,11 +153,11 @@ const UserProfile = () => {
               <IconElements className='bx bx-objects-vertical-bottom' style={{color:'#fff'}}></IconElements>
               <P>Lorem ipsum <Next className='bx bx-right-arrow-alt' style={{color:'#606060'}} ></Next></P>
             </Square>
-            <Square>
+            {/* <Square>
               <Graphics>Gráficos</Graphics>
               <IconElements className='bx bx-objects-vertical-bottom' style={{color:'#fff'}}></IconElements>
               <P>Lorem ipsum <Next className='bx bx-right-arrow-alt' style={{color:'#606060'}} ></Next></P>
-            </Square>
+            </Square> */}
             <Square>
 
               <abbr title="Não é possivel adicionar mais itens">
