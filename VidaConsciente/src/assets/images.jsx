@@ -5,8 +5,7 @@ import Dashboard from './images/dashboard.png';
 import Home from './images/home.png';
 import LogOut from './images/log-out.png';
 import User from './images/user.png';
-import Female from './images/female.jpg';
-import Male from './images/male.png';
+import UserPhoto from './images/user-profile.jpg';
 
 const Images = {
     // Logo,
@@ -16,8 +15,7 @@ const Images = {
     Home,
     LogOut,
     User,
-    Female,
-    Male
+    UserPhoto
 };
 
 export default Images;
