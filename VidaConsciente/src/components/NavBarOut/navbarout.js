@@ -11,6 +11,12 @@ export const Menu = styled.nav`
   align-items: center;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `;
+export const LogoImage = styled.img`
+  width: 30px;
+  transform: rotate(-10deg); 
+
+  margin-left: 10px;
+`;
 
 export const Nav = styled.nav`
   display: flex;

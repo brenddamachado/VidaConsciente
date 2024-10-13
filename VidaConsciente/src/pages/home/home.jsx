@@ -1,9 +1,38 @@
-import React from 'react'
+import React from 'react';
+import NavBarOut from '../../components/NavBarOut/navbarout.jsx';
+import fundo from '../../assets/images/fundo.webp';
+import './home.css';
+import DiseaseCarousel from '../../components/DiseaseCards/DiseaseCards'; 
+import NavBar from '../../components/NavBar/NavBar';
+import Sidebar from '../../components/SideBar/SideBar.jsx';
 
-function home() {
+function Home() {
+
+  const isLoggedIn = !!localStorage.getItem('token');
+
   return (
-    <div>home</div>
-  )
+    <>
+    
+      {isLoggedIn ? (
+        <>
+          <NavBar /> 
+          <Sidebar /> 
+        </>
+      ) : (
+        <NavBarOut currentPage="home" />  
+      )}
+
+      <div className='home-container'>
+        <div className='imgFundo'>
+          <img src={fundo} alt="Fundo inicial" />
+        </div>
+
+        <div className='carousel-wrapper'>
+          <DiseaseCarousel />
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default home
+export default Home;

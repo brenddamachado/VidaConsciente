@@ -1,0 +1,49 @@
+.disease-carousel-container {
+    padding: 20px;
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  .slick-slide {
+    padding: 0 10px; 
+  }
+  
+  .card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: left;
+    height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .card h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .card p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #555;
+    flex-grow: 1;
+    overflow: hidden; 
+  }
+  
+  .slick-prev:before, .slick-next:before {
+    color: #333; 
+  }
+  
+  .slick-dots li button:before {
+    color: #333;
+  }
+  
+  .slick-dots li.slick-active button:before {
+    color: #000;
+  }
+  

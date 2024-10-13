@@ -1,6 +1,8 @@
 import React, { useState } from 'react'; 
 import axios from 'axios';
-import NavBarOut from '../../components/NavBarOut/NavBarOut';
+import NavBarOut from '../../components/NavBarOut/navbarout.jsx';
+
+
 import { 
     RegContainer, 
     FormsContainer, 
@@ -100,7 +102,7 @@ function Registre() {
 
     return (
         <RegContainer>
-            <NavBarOut />
+             <NavBarOut currentPage="register" />
 
             <FormsContainer>
                 <Form onSubmit={handleSubmit}>

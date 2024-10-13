@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; 
+  }
+  
+  .home-container {
+    position: relative;
+    width: 1920px;
+    height: 1080px; 
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow: hidden;
+    margin: 0 auto; 
+  }
+  
+  .imgFundo {
+    position: relative;
+    width: 100%;
+    height: 50vh; 
+    overflow: hidden;
+  }
+  
+  .imgFundo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .text-overlay {
+    position: absolute;
+    top: 20%; 
+    left: 20px; 
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+  }
+  
+  .text-overlay h1 {
+    font-size: 36px;
+    margin: 0;
+  }
+  
+  .text-overlay p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin: 10px 0 0;
+  }
+  
+  .carousel-wrapper {
+    position: relative;
+    top: -160px; 
+    padding: 0 20px;
+    z-index: 1;
+    width: 100%; 
+  }
+  
+  
+  .card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: left;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .slick-slide {
+    padding: 0 10px; 
+  }
+  
+  .card .content {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+  }
+  
+
+  @media (max-width: 1920px) {
+    .home-container {
+      width: 100vw;
+      height: 100vh;
+    }
+  
+    .carousel-wrapper, .disease-carousel-container {
+      width: 100%;
+    }
+  }
+  

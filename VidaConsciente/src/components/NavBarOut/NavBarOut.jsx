@@ -1,25 +1,41 @@
 import { useLocation } from 'react-router-dom';
-import { Menu, Nav, Logo, Navigation, UserNavigation, Line, StyledNavLink } from "./NavBarOut.style.js";
-import "./NavBarOut.css";
+import { Menu, Nav, LogoImage, Navigation, UserNavigation, Line, StyledNavLink } from "./navbarout.js";
+import "./navbarout.css";
+import logo from "../../assets/images/dst.png";
 
-const NavBar = () => {
+const NavBarOut = () => {
   const location = useLocation();
+  const currentPath = location.pathname;
+  
 
-  const isOnRegisterPage = location.pathname === '/register';
+  const isLoggedIn = !!localStorage.getItem('token');
 
   return (
     <Menu>
       <Nav>
-        <Logo>LOGO</Logo>
+        <LogoImage src={logo} alt="Logo" />
         <Navigation>
           <UserNavigation>
             <Line></Line>
             <div className="nav-links">
-              <StyledNavLink to="/" exact activeClassName="active">Home</StyledNavLink>
-              {isOnRegisterPage ? (
-                <StyledNavLink to="/login" activeClassName="active">Login</StyledNavLink>
-              ) : (
-                <StyledNavLink to="/register" activeClassName="active">Cadastro</StyledNavLink>
+
+              {currentPath !== '/' && (
+                <StyledNavLink to="/" exact activeClassName="active">
+                  Home
+                </StyledNavLink>
+              )}
+
+
+              {currentPath !== '/register' && (
+                <StyledNavLink to="/register" activeClassName="active">
+                  Cadastro
+                </StyledNavLink>
+              )}
+
+              {!isLoggedIn && currentPath !== '/login' && (
+                <StyledNavLink to="/login" activeClassName="active">
+                  Login
+                </StyledNavLink>
               )}
             </div>
           </UserNavigation>
@@ -29,4 +45,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default NavBarOut;

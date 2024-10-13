@@ -13,6 +13,13 @@ export const Menu = styled.nav`
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     position: absolute;
 `
+export const LogoImage = styled.img`
+  width: 30px;
+  transform: rotate(-10deg); 
+
+  margin-left: 10px;
+`;
+
 
 export const Nav = styled.nav`
     /* border: red solid 1px; */

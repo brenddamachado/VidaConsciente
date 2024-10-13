@@ -9,7 +9,7 @@ import {
     FormBtn, 
     Button 
 } from '../RegisterForm/registre.style.js'; 
-import NavBarOut from "../../components/NavBarOut/NavBarOut";
+import NavBarOut from '../../components/NavBarOut/navbarout.jsx';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -26,10 +26,11 @@ function Login() {
         })
         .then((response) => {
             if (response.status === 200) {
-                const { name, email: userEmail } = response.data.user;
+                const { name, email: userEmail, token } = response.data.user;
 
                 localStorage.setItem('userName', name);
                 localStorage.setItem('userEmail', userEmail);  
+                localStorage.setItem('token', token); 
 
                 console.log('Usuário logado:', userEmail); 
 
@@ -46,7 +47,7 @@ function Login() {
 
     return (
         <RegContainer>
-            <NavBarOut />
+          <NavBarOut currentPage="login" />
             <LoginContainer >
                 <Form onSubmit={handleLogin}>
                     <h2>Login</h2>

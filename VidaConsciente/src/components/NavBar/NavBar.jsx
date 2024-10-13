@@ -1,7 +1,8 @@
 import React from 'react';
 import Images from "../../assets/images.jsx";
-import { Menu, Nav, Logo, Navigation, UserNavigation, Line, UserPhoto, DropDown, I } from "./NavBar.styles.js";
+import { Menu, LogoImage, Nav, Logo, Navigation, UserNavigation, Line, UserPhoto, DropDown, I } from "./NavBar.styles.js";
 import "./NavBar.css";
+import logo from "../../assets/images/dst.png";
 
 const NavBar = () => {
   const fullName = localStorage.getItem('userName') || 'Usuário';
@@ -10,7 +11,7 @@ const NavBar = () => {
   return (
     <Menu>
       <Nav>
-        <Logo>LOGO</Logo>
+      <LogoImage src={logo} alt="Logo" />
         <Navigation>
           <UserNavigation>
             <Line />

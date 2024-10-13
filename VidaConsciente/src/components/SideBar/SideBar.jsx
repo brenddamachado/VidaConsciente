@@ -6,9 +6,17 @@ const SideBar = () => {
 
   const handleNavigation = (route) => {
     if (route === 'logout') {
-      localStorage.removeItem('userName'); 
-      navigate('/'); 
+     
+      localStorage.removeItem('userName');
+      localStorage.removeItem('userEmail'); 
+      localStorage.removeItem('token');
+
+      navigate('/');
+  
+    
+      window.location.reload();
     } else {
+
       navigate(route);
     }
   };
