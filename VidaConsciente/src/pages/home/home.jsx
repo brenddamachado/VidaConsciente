@@ -4,7 +4,7 @@ import fundo from '../../assets/images/fundo.webp';
 import './home.css';
 import DiseaseCarousel from '../../components/DiseaseCards/DiseaseCards'; 
 import NavBar from '../../components/NavBar/NavBar';
-import Sidebar from '../../components/SideBar/SideBar.jsx';
+import Sidebar from '../../components/SideBar/SideBar.jsx'; // Corrigido para Sidebar com "S" maiúsculo
 
 function Home() {
 

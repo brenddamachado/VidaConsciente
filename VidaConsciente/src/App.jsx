@@ -4,7 +4,7 @@ import Registre from './pages/RegisterForm/Registre';
 import Dashboard from './pages/Dashboard/Dashboard';
 import 'boxicons/css/boxicons.min.css'
 import UserProfile from './pages/UserProfile/UserProfile';
-import Login from './pages/Login/Login'; 
+import Login from './pages/Login/login'; 
 import './App.css';
 
 function App() {

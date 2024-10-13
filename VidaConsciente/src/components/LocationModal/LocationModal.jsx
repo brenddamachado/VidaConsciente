@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import "./LocationModal.css"
 
 const LocationModal = ({ location, onClose, fetchLocations }) => {
     const [isEditMode, setIsEditMode] = useState(false);
@@ -48,9 +48,9 @@ const LocationModal = ({ location, onClose, fetchLocations }) => {
     }
 
     return (
-        <div className="modal">
+        <div className="modal-overlay">
             <div className="modal-content">
-                <span className="close" onClick={onClose}>&times;</span>
+                <span className="modal-close" onClick={onClose}>&times;</span>
 
                 {!isEditMode ? (
                     <div>
@@ -62,12 +62,15 @@ const LocationModal = ({ location, onClose, fetchLocations }) => {
                         <p><strong>Latitude:</strong> {location.latitude}</p>
                         <p><strong>Longitude:</strong> {location.longitude}</p>
 
-                        <button onClick={() => setIsEditMode(true)}>Editar</button>
-                        <button onClick={handleDelete}>Excluir</button>
+                        <div className="modal-buttons">
+                            <button type="button" onClick={() => setIsEditMode(true)}>Editar</button>
+                            <button type="button" onClick={handleDelete}>Excluir</button>
+                        </div>
                     </div>
                 ) : (
                     <form onSubmit={handleEdit}>
                         <h2>Editar Local</h2>
+
                         <div>
                             <label>Nome:</label>
                             <input 
@@ -78,6 +81,7 @@ const LocationModal = ({ location, onClose, fetchLocations }) => {
                                 required 
                             />
                         </div>
+
                         <div>
                             <label>Endereço:</label>
                             <input 
@@ -88,6 +92,7 @@ const LocationModal = ({ location, onClose, fetchLocations }) => {
                                 required 
                             />
                         </div>
+
                         <div>
                             <label>Horário:</label>
                             <input 
@@ -98,6 +103,7 @@ const LocationModal = ({ location, onClose, fetchLocations }) => {
                                 required 
                             />
                         </div>
+
                         <div>
                             <label>Serviço:</label>
                             <input 
@@ -108,6 +114,7 @@ const LocationModal = ({ location, onClose, fetchLocations }) => {
                                 required 
                             />
                         </div>
+
                         <div>
                             <label>Latitude:</label>
                             <input 
@@ -118,6 +125,7 @@ const LocationModal = ({ location, onClose, fetchLocations }) => {
                                 required 
                             />
                         </div>
+
                         <div>
                             <label>Longitude:</label>
                             <input 
@@ -128,8 +136,11 @@ const LocationModal = ({ location, onClose, fetchLocations }) => {
                                 required 
                             />
                         </div>
-                        <button type="submit">Salvar</button>
-                        <button type="button" onClick={() => setIsEditMode(false)}>Cancelar</button>
+
+                        <div className="modal-buttons">
+                            <button type="submit">Salvar</button>
+                            <button type="button" onClick={() => setIsEditMode(false)}>Cancelar</button>
+                        </div>
                     </form>
                 )}
             </div>
