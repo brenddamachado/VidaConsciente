@@ -19,10 +19,13 @@ function Login() {
         })
         .then((response) => {
             if (response.status === 200) {
-                const { name } = response.data.user;
-        
+                const { name, email: userEmail } = response.data.user;
+
                 localStorage.setItem('userName', name);
-               
+                localStorage.setItem('userEmail', userEmail);  
+
+                console.log('Usuário logado:', userEmail); 
+
                 navigate('/dashboard');
             } else {
                 setErrorMessage('Erro ao logar. Tente novamente.');
@@ -45,7 +48,7 @@ function Login() {
                             <div className="form-row">
                                 <label htmlFor="e-mail">E-mail</label>
                                 <input 
-                                    type="text" 
+                                    type="email" 
                                     id="e-mail" 
                                     name="e-mail" 
                                     value={email} 
