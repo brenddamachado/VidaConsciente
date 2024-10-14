@@ -22,7 +22,6 @@ const UserProfile = () => {
     setDropdownOpen(!dropdownOpen);
   }
 
-
   const toggleEditMode = () => {
     if (isEditing) {
       saveProfile(); 
@@ -39,7 +38,6 @@ const UserProfile = () => {
         city  
       });
       console.log("Perfil atualizado com sucesso", response.data);
-      alert("Perfil atualizado com sucesso!"); 
     } catch (error) {
       console.log("Erro ao atualizar o perfil:", error);
     }
@@ -90,6 +88,7 @@ const UserProfile = () => {
             <Profile>
               <img src={getAvatarImage()} alt="Profile" />
               <About>
+                
                 <h1>{isEditing ? (
                   <Input
                     type="text"
@@ -98,8 +97,8 @@ const UserProfile = () => {
                   />
                 ) : (
                   name
-                )}</h1>
-                <Icon className='bx bxs-check-circle' style={{color:'#73a66f'}} ></Icon>
+                )} <Icon className='bx bxs-check-circle' style={{color:'#73a66f'}} ></Icon></h1>
+                
 
                 <Info>
                   {isEditing ? (
@@ -130,7 +129,7 @@ const UserProfile = () => {
                 <Bio>
                   <i className='bx bxs-quote-left' style={{color:'#A0A0A0'}}></i>ﾠ
                   A saúde deve ser uma prioridade em nossas vidas. Quando nos conscientizamos sobre doenças, não apenas cuidamos de nós mesmos, mas também contribuímos para um mundo onde todos têm a chance de viver uma vida plena e saudável.
-                  <Icon className='bx bxs-check-circle' style={{color:'#73a66f'}}></Icon>
+                  <i className='bx bxs-quote-left' style={{color:'#A0A0A0'}}></i>ﾠ
 
                 </Bio>
               </About>

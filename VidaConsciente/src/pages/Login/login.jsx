@@ -29,8 +29,8 @@ function Login() {
                
                 const { id, name, email: userEmail, token } = response.data.user;
 
-                // Salvando os dados no localStorage
-                localStorage.setItem('userId', id); // Salva o userId
+                
+                localStorage.setItem('userId', id); 
                 localStorage.setItem('userName', name);
                 localStorage.setItem('userEmail', userEmail);  
                 localStorage.setItem('token', token); 

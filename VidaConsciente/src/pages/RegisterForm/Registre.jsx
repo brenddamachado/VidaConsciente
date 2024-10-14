@@ -130,13 +130,11 @@ function Registre() {
                                 <FormRow>
                                     <label htmlFor="genero">Gênero</label>
                                     <select id="genero" name="genero" value={genero} onChange={(e) => setGenero(e.target.value)} required>
-                                        <option value="selecionar">Selecionar</option>
-                                        <option value="masculino">Masculino</option>
-                                        <option value="feminino">Feminino</option>
-                                        <option value="transgenero">Transgênero</option>
-                                        <option value="nao-binario">Não-binário</option>
-                                        <option value="outro">Outro</option>
-                                        <option value="prefiro-nao-dizer">Prefiro não dizer</option>
+                                        <option value="">Selecionar</option>
+                                        <option value="homem_cis">Homem cis</option>
+                                        <option value="homem_transgenero">Homem transgênero</option>
+                                        <option value="mulher_cis">Mulher cis</option>
+                                        <option value="mulher_transgenero">Mulher transgênero</option>
                                     </select>
                                 </FormRow>
                                 <FormRow>
