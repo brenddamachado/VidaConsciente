@@ -26,14 +26,18 @@ function Login() {
         })
         .then((response) => {
             if (response.status === 200) {
-                const { name, email: userEmail, token } = response.data.user;
+               
+                const { id, name, email: userEmail, token } = response.data.user;
 
+                
+                localStorage.setItem('userId', id); 
                 localStorage.setItem('userName', name);
                 localStorage.setItem('userEmail', userEmail);  
                 localStorage.setItem('token', token); 
 
                 console.log('Usuário logado:', userEmail); 
 
+    
                 navigate('/dashboard');
             } else {
                 setErrorMessage('Erro ao logar. Tente novamente.');

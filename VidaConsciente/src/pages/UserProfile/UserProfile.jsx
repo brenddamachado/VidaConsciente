@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import SideBar from "../../components/SideBar/SideBar";
-import Images from "../../assets/images/female.jpg";
+import maleAvatar from "../../assets/images/male.png.jpg";
+import femaleAvatar from "../../assets/images/female.jpg";
+import axios from 'axios';  
 import { MainContainer, UserProfileContent, Profile, Line, About, 
-  Span, Icon, Info, Bio, Location, Strong, Edit, Input, MainContent, 
+  Icon, Info, Bio, Location, Edit, Input, MainContent, 
   UserProfileContainer, FindOutMore, GroupSquare, Square, Graphics, IconElements, 
   P, Next, DropdownMenu, DropdownItem } from './UserProfile.style.js'
 import './UserProfile.css'
@@ -11,11 +13,10 @@ import './UserProfile.css'
 const UserProfile = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-
-  const [name, setName] = useState('User Example');
-  const [email, setEmail] = useState('userexample@gmail');
-  const [location, setLocation] = useState('Recife');
-  // deixem vazio, isso é so p testar a edição
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [city, setCity] = useState('');
+  const [gender, setGender] = useState(''); 
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -23,41 +24,61 @@ const UserProfile = () => {
 
   const toggleEditMode = () => {
     if (isEditing) {
-      saveProfile()
+      saveProfile(); 
     }
-    setIsEditing(!isEditing);
+    setIsEditing(!isEditing); 
   }
 
   const saveProfile = async () => {
+    const userId = localStorage.getItem('userId'); 
     try {
-      const response = await axios.put('coloca_aqui_a_rota_da_edicao_joicy', {
+      const response = await axios.put(`http://localhost:3000/api/updateUser/${userId}`, { 
         name,
         email,
-        location
-      })
+        city  
+      });
+      console.log("Perfil atualizado com sucesso", response.data);
     } catch (error) {
-      console.log(error)
+      console.log("Erro ao atualizar o perfil:", error);
     }
   }
-  
+
   useEffect(() => {
     getProfile();
-    // mostrar isso aq p professor
   }, []);
 
   const getProfile = async () => {
+    const userId = localStorage.getItem('userId'); 
+    console.log("User ID:", userId);
+    
+    if (!userId) {
+      console.error("User ID not found in localStorage.");
+      window.location.href = "/login";
+      return;
+    }
+  
     try {
-      const response = await axios.get('coloca_aqui_a_rota_de_pegar_os_dados_joicy')
-      // nome, email, location e genero (genero é apenas para mudar a imagem de perfil conforme a escolha) IMPORTANTE: Verifica como vc pegou o dados no formulario, ali no campo ta como 'female' or 'male'
-      setName(response.data.name)
-      setEmail(response.data.email)
-      setLocation(response.data.location)
-      gender=response.data.gender
+      const response = await axios.get(`http://localhost:3000/api/getUser/${userId}`);
+      console.log("Profile Response:", response.data);
+      setName(response.data.name);
+      setEmail(response.data.email);
+      setCity(response.data.city);
+      setGender(response.data.gender); 
     } catch (error) {
-      console.log(error)
+      console.error("Error fetching profile:", error);
     }
   }
-  let gender = 'Male';
+
+  // imagem do avatar 
+  const getAvatarImage = () => {
+    if (gender === 'homem_cis' || gender === 'homem_transgenero') {
+      return maleAvatar; 
+    } else if (gender === 'mulher_cis' || gender === 'mulher_transgenero') {
+      return femaleAvatar; 
+    }
+    return null; 
+  };
+
   return (
     <>
       <NavBar/>
@@ -65,73 +86,63 @@ const UserProfile = () => {
       <MainContainer>
         <UserProfileContent>
             <Profile>
-           
-           <img src={Images} alt="" />
-                <About>
-                    <Span>
-                      {isEditing ? (
-                        <Input
-                          type="text"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                        />
-                      ) : (
-                        <h1>{name}</h1>
-                      )}
-                      <Icon className='bx bxs-check-circle' style={{color:'#73a66f'}}  ></Icon>
-                      {/* olhar dps do pq nao ta indo p condicao ali de icma */}
-                    </Span>
-                    
-                    <Info>
-                      {isEditing ? (
-                        <Input
-                          type="text"
-                          value={location}
-                          onChange={(e) => setLocation(e.target.value)}
-                        />
-                      ) : (
-                      <Location><i className='bx bx-current-location' style={{color:'#A0A0A0'}} ></i>
-                      {location}</Location>
-                      )}
+              <img src={getAvatarImage()} alt="Profile" />
+              <About>
+                
+                <h1>{isEditing ? (
+                  <Input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                ) : (
+                  name
+                )} <Icon className='bx bxs-check-circle' style={{color:'#73a66f'}} ></Icon></h1>
+                
 
-                      {isEditing ? (
-                        <Input
-                          type="text"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                      ) : (
-                      <Location><i className='bx bx-message' style={{color:'#A0A0A0'}} ></i>
-                      {email}</Location> 
-                      )}
-                      <Location><i className='bx bx-check-circle' style={{color:'#A0A0A0'}} ></i>
-                      Verify at 12/10/2021</Location> {/* DATA */}
-                    </Info>
+                <Info>
+                  {isEditing ? (
+                    <Input
+                      type="text"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                    />
+                  ) : (
+                  <Location><i className='bx bx-current-location' style={{color:'#A0A0A0'}} ></i>
+                  {city}</Location>
+                  )}
 
-                    <Bio>
-                    <i className='bx bxs-quote-left' style={{color:'#A0A0A0'}}></i>ﾠ
-                    A saúde deve ser uma prioridade em nossas vidas. Quando nos conscientizamos sobre doenças, não apenas cuidamos de nós mesmos, mas também contribuímos para um mundo onde todos têm a chance de viver uma vida plena e saudável, livre de estigmas e preconceitos.
-                    ﾠ<i class='bx bxs-quote-right' style={{color:'#A0A0A0'}} ></i>
-                    </Bio>
+                  {isEditing ? (
+                    <Input
+                      type="text"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  ) : (
+                  <Location><i className='bx bx-message' style={{color:'#A0A0A0'}} ></i>
+                  {email}</Location> 
+                  )}
+                  <Location><i className='bx bx-check-circle' style={{color:'#A0A0A0'}} ></i>
+                  Verify at 12/10/2021</Location>
+                </Info>
 
-                    <Location>
-                      <p>Gender: <Strong>{gender}</Strong></p> {/* DATA */}
-                      <p>Sexual Orientation: <Strong>Heterosexual</Strong></p> {/* DATA */}
-                    </Location>
+                <Bio>
+                  <i className='bx bxs-quote-left' style={{color:'#A0A0A0'}}></i>ﾠ
+                  A saúde deve ser uma prioridade em nossas vidas. Quando nos conscientizamos sobre doenças, não apenas cuidamos de nós mesmos, mas também contribuímos para um mundo onde todos têm a chance de viver uma vida plena e saudável.
+                  <i className='bx bxs-quote-left' style={{color:'#A0A0A0'}}></i>ﾠ
 
-                </About>
-                {/* aqui vai ficar o editar */}
-                <Edit onClick={toggleDropdown} isOpen={isEditing} className={isEditing ? 'bx bx-x' : 'bx bx-dots-vertical-rounded'} style={{color:'#D9D9D9'}}></Edit>
-                {dropdownOpen && (
-                  <DropdownMenu>
-                    <DropdownItem onClick={toggleEditMode}>{isEditing ? 'Salvar' : 'Editar'}</DropdownItem>
-                  </DropdownMenu>
-                )}
+                </Bio>
+              </About>
+
+              <Edit onClick={toggleDropdown} className={isEditing ? 'bx bx-x' : 'bx bx-dots-vertical-rounded'} style={{color:'#000'}}></Edit>
+              {dropdownOpen && (
+                <DropdownMenu>
+                  <DropdownItem onClick={toggleEditMode}>{isEditing ? 'Salvar' : 'Editar'}</DropdownItem>
+                </DropdownMenu>
+              )}
             </Profile>
             <Line></Line>
         </UserProfileContent>
-
-        
       </MainContainer>
 
       <MainContent>
@@ -153,22 +164,9 @@ const UserProfile = () => {
               <IconElements className='bx bx-objects-vertical-bottom' style={{color:'#fff'}}></IconElements>
               <P>Lorem ipsum <Next className='bx bx-right-arrow-alt' style={{color:'#606060'}} ></Next></P>
             </Square>
-            {/* <Square>
-              <Graphics>Gráficos</Graphics>
-              <IconElements className='bx bx-objects-vertical-bottom' style={{color:'#fff'}}></IconElements>
-              <P>Lorem ipsum <Next className='bx bx-right-arrow-alt' style={{color:'#606060'}} ></Next></P>
-            </Square> */}
-            <Square>
-
-              <abbr title="Não é possivel adicionar mais itens">
-                <IconElements className='bx bx-cross' style={{color:'#606060'}}></IconElements>
-              </abbr>
-
-            </Square>
           </GroupSquare>
-          </UserProfileContainer>
-          </MainContent>
-
+        </UserProfileContainer>
+      </MainContent>
     </>
   );
 };
