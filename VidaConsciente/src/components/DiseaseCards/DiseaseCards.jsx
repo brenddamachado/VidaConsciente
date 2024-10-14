@@ -63,7 +63,7 @@ function DiseaseCarousel() {
   };
 
   const handleDelete = (idDisease) => {
-    const confirmDelete = window.confirm("Tem certeza que deseja excluir esta doença?");
+    const confirmDelete = window.confirm("Tem certeza que deseja excluir esta doença?" );
     if (confirmDelete) {
       axios.delete(`http://localhost:3000/diseases/${idDisease}`)
         .then(response => {
