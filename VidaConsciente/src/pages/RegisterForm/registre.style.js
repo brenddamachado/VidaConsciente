@@ -57,7 +57,7 @@ export const Button = styled.button`
 `;
 
 export const FormRow = styled.div`
-    padding: 5px 0;
+    padding: 3px 0;
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -68,11 +68,11 @@ export const FormRow = styled.div`
     }
 
     input, select {
-        width: 100%;  /* Garante que o input ocupe todo o espaço disponível */
+        width: 100%; 
         padding: 3px;
         border-radius: 5px;
         border: 1px solid #ccc;
-        box-sizing: border-box; /* Garante que o padding não afete a largura total */
+        box-sizing: border-box;
         font-size: 1rem;
     }
 `;
@@ -83,6 +83,6 @@ export const FormDuoRow = styled.div`
     width: 100%;
 
     & > div {
-        flex: 1; /* Garante que as colunas dentro de um FormDuoRow tenham tamanhos iguais */
+        flex: 1;
     }
 `;

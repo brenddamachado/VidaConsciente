@@ -1,12 +1,11 @@
 import React, { useState } from 'react'; 
 import axios from 'axios';
 import NavBarOut from '../../components/NavBarOut/navbarout.jsx';
-
-
+import { useNavigate } from 'react-router-dom';
 import { 
     RegContainer, 
     FormsContainer, 
-    Form, 
+    Form,   
     FormRow, 
     FormDuoRow, 
     FormBtn, 
@@ -14,44 +13,46 @@ import {
 } from './registre.style.js';
 
 function Registre() {
+    const navigate = useNavigate();
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
-
+    
     const [cep, setCep] = useState('');
     const [cidade, setCidade] = useState('');
     const [estado, setEstado] = useState('');
     const [endereco, setEndereco] = useState('');
-
+    
     const [telefone, setTelefone] = useState('');
     const [genero, setGenero] = useState('');
     const [dataNascimento, setDataNascimento] = useState('');
-
-    const [erroSenha, setErroSenha] = useState('');
-
+    
+    const [erroSenha, setErroSenha] = useState(''); 
+    const [mensagem, setMensagem] = useState(''); 
+    
     function limparCep() {
         setEndereco('');
         setCidade('');
         setEstado('');
     }
-
+    
     function preencherCampos(dados) {
-        if (!("erro" in dados)) {
+        if (!dados.erro) {
             setEndereco(dados.logradouro);
             setCidade(dados.localidade);
             setEstado(dados.uf);
         } else {
             limparCep();
-            alert("CEP não encontrado.");
+            setMensagem("CEP não encontrado.");
         }
     }
-
+    
     function buscarCep(event) {
         const cepValue = event.target.value.replace(/\D/g, '');
         setCep(cepValue);
-
-        if (cepValue !== "" && /^[0-9]{8}$/.test(cepValue)) {
+    
+        if (cepValue.length === 8) {
             setEndereco('...');
             setCidade('...');
             setEstado('...');
@@ -64,17 +65,17 @@ function Registre() {
             limparCep();
         }
     }
-
+    
     function handleSubmit(event) {
         event.preventDefault();
-
+    
         if (senha !== confirmarSenha) {
             setErroSenha('As senhas não são iguais');
             return; 
         }
-
-        setErroSenha('');
-
+    
+        setErroSenha(''); 
+    
         axios.post('http://localhost:3000/registerUser', { 
             name: nome, 
             email: email,
@@ -89,17 +90,17 @@ function Registre() {
         })
         .then((response) => {
             if (response.status === 201) {
-                alert('Usuário cadastrado com sucesso!');
+                setMensagem('Usuário cadastrado com sucesso!');
+                navigate('/login'); 
             } else {
-                alert('Algo deu errado ao cadastrar o usuário.');
-            }
-        })
-        .catch((error) => {
-            console.error('Erro ao cadastrar o usuário:', error);
-            alert('Erro ao cadastrar o usuário. Verifique os dados e tente novamente.');
+                setMensagem('Algo deu errado ao cadastrar o usuário.');
+            }  
+              })
+        .catch(() => {
+            setMensagem('Erro ao cadastrar o usuário. Verifique os dados e tente novamente.');
         });
     }
-
+    
     return (
         <RegContainer>
              <NavBarOut currentPage="register" />
@@ -107,6 +108,9 @@ function Registre() {
             <FormsContainer>
                 <Form onSubmit={handleSubmit}>
                     <h2>Cadastre-se</h2>
+                  
+                    {erroSenha && <p style={{ color: 'red' }}>{erroSenha}</p>}
+                    {mensagem && <p style={{ color: mensagem.includes('sucesso') ? 'green' : 'red' }}>{mensagem}</p>}
 
                     <div className="form-container">
                         <div className="form-column">
@@ -160,7 +164,7 @@ function Registre() {
                                 <label htmlFor="endereco">Endereço</label>
                                 <input type="text" id="endereco" name="endereco" value={endereco} onChange={(e) => setEndereco(e.target.value)} required />
                             </FormRow>
-
+                       <FormDuoRow>
                             <FormRow>
                                 <label htmlFor="senha">Senha</label>
                                 <input type="password" id="senha" name="senha" value={senha} onChange={(e) => setSenha(e.target.value)} required />
@@ -169,7 +173,7 @@ function Registre() {
                                 <label htmlFor="confirmarSenha">Confirmação de Senha</label>
                                 <input type="password" id="confirmarSenha" name="confirmarSenha" value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} required />
                             </FormRow>
-                            {erroSenha && <p style={{ color: 'red' }}>{erroSenha}</p>}
+                        </FormDuoRow>
                         </div>
                     </div>
                     <FormBtn><Button type="submit">Cadastrar</Button></FormBtn>
