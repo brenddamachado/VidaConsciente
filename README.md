@@ -74,7 +74,6 @@ Uma melhoria significativa para o futuro desenvolvimento do projeto seria a impl
 
 ## 💻 Colaboradores
 - [Brenda Machado](https://github.com/brenddamachado)
-- [Elzo Íthalo](https://github.com/ithalloelzo)
-- [Hewel Vieira](https://github.com/hewelbelmonte)
-- [Joicy Kelly](https://github.com/Joicylara)
-- [Rodrigo Átila](https://github.com/Rodrigoatila09)
+- [Jamyle Elen](https://github.com/Jamyle-Elen)
+- [Ana Neves ](https://github.com/Ana-Neves)
+
